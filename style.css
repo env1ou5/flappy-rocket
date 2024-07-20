@@ -1,0 +1,93 @@
+
+
+.rocket {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    image-rendering: pixelated;
+}
+
+.Explosion {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  image-rendering: pixelated;
+  width: 150px;
+  height: 150px;
+  margin: 0;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  animation: explosioneffect 1s linear forwards;
+}
+
+@keyframes explosioneffect {
+  0% {
+    width: 150px;
+    height: 150px;
+    opacity: 1;
+  }
+  
+  100% {
+    transform: scale(2) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+body {
+    text-align: center;
+    background-color: rgb(86, 130, 148);
+    font-family:'Trebuchet MS';
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#StartText {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    color: white;
+    font-weight: bold;
+    font-size: xx-large;
+    text-shadow: 0 0px 0 #000000, 0 2px 0 #000000,
+        0 1px 0 #000000, 0 2px 0 #000000,
+        0 3px 0 #000000, 0 4px 0 #000000,
+        0 5px 0 #000000, 0 6px 0 #000000,
+        0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+
+#board {
+    background-image: url("images/sky.png");
+    background-position: 0 0;
+    background-size: 1024px;
+    image-rendering: pixelated;
+    background-repeat: repeat;
+}
+
+#Score {
+  position: absolute;
+  top: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 0 0px 0 #000000, 0 2px 0 #000000,
+        0 1px 0 #000000, 0 2px 0 #000000,
+        0 3px 0 #000000, 0 4px 0 #000000,
+        0 5px 0 #000000, 0 6px 0 #000000,
+        0 10px 30px rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+}
+
+@keyframes animatedBackground {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: calc(-1024px*10) 0;
+    }
+  }
