@@ -167,6 +167,7 @@ function OnClick() {
         pipesHolder = []
 
         score = 0;
+        speed = 10;
         gameover = false;
         gamestarted = true;
         starttext.style.visibility = "hidden";
