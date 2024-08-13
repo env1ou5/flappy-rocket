@@ -2,10 +2,12 @@
 
 let starttext = document.querySelector("#StartText");
 let scoretext = document.querySelector("#Score");
+let highscoretext = document.querySelector("#HighScore")
 
 let score = 0; 
 let board;
 let context;
+let highscore = 0;
 
 let boardWidth = 1200;
 let boardHeight = 800;
@@ -112,6 +114,9 @@ function update(currentTime) {
         gameover = true;
         gamestarted = false;
 
+        highscore = score > highscore && score || highscore;
+        highscoretext.innerHTML = "HIGH SCORE: " + highscore;
+
         fakerocket.style.visibility = "hidden";
 
         let explosion = new Audio()
@@ -120,7 +125,7 @@ function update(currentTime) {
         explosion.play()
 
         starttext.style.visibility = "visible";
-
+        
         explosionimage = new Image();
         explosionimage.className = "Explosion";
         explosionimage.src = "images/explosion.png";
@@ -181,6 +186,8 @@ function OnClick() {
         starttext.style.visibility = "hidden";
         scoretext.style.visibility = "visible";
         scoretext.innerHTML = "SCORE: " + score;
+
+        highscoretext.style.visibility = "visible";
 
         if (explosionimage) {
             document.body.removeChild(explosionimage);
