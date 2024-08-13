@@ -82,6 +82,19 @@ body {
         0 10px 30px rgba(0, 0, 0, 0.5);
   visibility: hidden;
 }
+#HighScore {
+  position: absolute;
+  top: 100px;
+  color: rgb(252, 220, 113);
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 0 0px 0 #000000, 0 1px 0 #000000,
+        0 0px 0 #000000, 0 1px 0 #000000,
+        0 0px 0 #000000, 0 3px 0 #000000,
+        0 0px 0 #000000, 0 4px 0 #000000,
+        0 0px 0px rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+}
 
 @keyframes animatedBackground {
     from {
