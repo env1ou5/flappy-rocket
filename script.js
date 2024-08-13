@@ -42,9 +42,9 @@ let BottomPipeImage;
 
 //physics
 
-let velX = -2;
+let velX = -300;
 let velY = 0;
-let gravity = 0.1;
+let gravity = 0.2;
 
 // game
 
@@ -53,20 +53,25 @@ let gameover = false;
 let speed = 10;
 let pipespawner;
 let backgroundpos = 0;
+let deltatime = 0;
+let last_time;
 
-function update(dt) {
+function update(currentTime) {
+
+    deltatime = (currentTime - (last_time || currentTime))/1000;
 
     context.clearRect(0,0,board.width,board.height);
 
-    velY += gravity;
-    rocket.y = Math.max(rocket.y + velY, rocket.Height/4);
+    velY += gravity*deltatime*160;
+    
+    rocket.y = Math.max(rocket.y + (velY * deltatime * 60), rocket.Height/4);
     rocket.y = Math.min(rocket.y, boardHeight - rocket.Height/4);
     
     let boardpos = board.getBoundingClientRect();
     
     fakerocket.style.top = boardpos.top + rocket.y - rocket.Height/2 + "px";
     fakerocket.style.left = boardpos.left + rocket.x + "px";
-    fakerocket.style.rotate = Math.min(velY*4,40)+"deg"
+    fakerocket.style.rotate = Math.min(velY*2,40)+"deg"
 
     for (let i = 0; i < pipesHolder.length; i++) {
         
@@ -76,7 +81,7 @@ function update(dt) {
             pipesHolder.splice(i, 1)
             i-=1;
         } else {
-            pipe.x += velX - speed/100;
+            pipe.x = pipe.x + (velX-speed*2)*deltatime;
             context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
         }
 
@@ -100,7 +105,7 @@ function update(dt) {
     }
 
     board.style["background-position"] =  backgroundpos + "px 0px"
-    backgroundpos -= 1 + speed/100
+    backgroundpos -= 1 + speed/100*deltatime*60
 
     if (rocket.y == boardHeight - rocket.Height/4 || gameover) {
 
@@ -127,14 +132,17 @@ function update(dt) {
         clearInterval(pipespawner);
 
     } else {
+
         requestAnimationFrame(update);
     }
+
+    last_time = currentTime;
 }
 
 function DrawPipes() {
     
     let randomPipeY = pipeY - pipeHeight/4 - Math.random()*(pipeHeight/2);
-    let gapspace = board.height/2;
+    let gapspace = board.height/3;
 
     let TopPipe = {
         img : TopPipeImage,
@@ -155,9 +163,9 @@ function DrawPipes() {
 
     pipesHolder.push(TopPipe);
     pipesHolder.push(BottomPipe);
-
+    
     clearInterval(pipespawner);
-    pipespawner = setInterval(DrawPipes, 15000/(10+(speed-10)*0.01));
+    pipespawner = setInterval(DrawPipes, 25000/(10+(speed-10)*0.1));
 }
 
 function OnClick() {
@@ -182,9 +190,9 @@ function OnClick() {
         rocket.y = boardHeight/2;
         fakerocket.style.visibility = "visible";
 
-        requestAnimationFrame(update)
-
-        pipespawner = setInterval(DrawPipes, 15000/(10+(speed-10)*0.01));
+        requestAnimationFrame(update);
+        
+        pipespawner = setInterval(DrawPipes, 25000/(10+(speed-10)*0.01));
     }
 
     if (!gameover) {
@@ -193,7 +201,7 @@ function OnClick() {
         jumpsound.src = "sounds/jump.wav"
         jumpsound.play()
 
-        velY = -6;
+        velY = -12;
     }
 }
 
